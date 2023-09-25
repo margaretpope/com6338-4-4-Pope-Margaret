@@ -37,13 +37,26 @@ window.onload = function() {
 document.onkeyup = function(e) {
   var guess = e.key.toLowerCase()
   var incorrectArr = []
-  for (var i = 0; i < letterArr.length; i++) {
-    if (guess === letterArr[i]) {
+  var occurancesArr = []
+  for (let i = 0; i < letterArr.length; i++) {
+    if (letterArr[i] === guess) {
       letterArr[i] = guess
-      wordToGuess.textContent[i] = guess
+      occurancesArr.push(guess)
+      wordToGuess.textContent = occurancesArr(i).replace('_', guess)
     } else {
       remainingEl.textContent = remaining--
       incorrectEl.textContent = incorrectArr.push(guess)
     }
+    previousWord.textContent = word
+  }
+  if (remaining === 0) {
+    stop()
+  }
+  if (wordToGuess === word) {
+    win++
+    winEl.textContent = win
+  } else {
+    loss++
+    lossEl.textContent = loss
   }
 }
